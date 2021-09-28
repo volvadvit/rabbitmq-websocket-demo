@@ -21,12 +21,18 @@
     </parent>
 
     <dependencies>
-        <!--  Spring  -->
+        <!--  Spring WebSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-        <!--  rabbit mq  -->
+    <!-- spring-boot-starter-reactor-netty -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-reactor-netty</artifactId>
+        <version>2.5.5</version>
+    </dependency>
+        <!--  Spring RabbitMQ  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>

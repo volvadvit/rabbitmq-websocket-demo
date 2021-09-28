@@ -1,36 +1,34 @@
 package com.zuzex.vvolkov.service;
 
 import com.zuzex.vvolkov.config.ClientMQConfig;
+import com.zuzex.vvolkov.model.NumberDTO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 @Service
-public class ClientProducer implements CommandLineRunner {
+public class ClientProducer {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Override
-    public void run(String... args) throws IOException {
+    public NumberDTO run(NumberDTO input) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input = reader.readLine();
-
-        int request = Integer.parseInt(input);
+        int request = Integer.parseInt(input.getNumber());
+        NumberDTO message = new NumberDTO();
 
         for (int i = 0; i < request; i++) {
             System.err.println("Sending number in queue: " + i);
+
             Integer response = (Integer) rabbitTemplate.convertSendAndReceive(
                             ClientMQConfig.topicExchangeName,
                             "number", i);
 
             System.err.println("response: " + response);
+
+            message.setNumber(response != null ? response.toString() : null);
         }
+        System.err.println("SERVICE :: return value");
+        return message;
     }
 }
