@@ -18,7 +18,7 @@ public class ServerConsumer {
         System.err.println("Get number: " + input);
 
         //Producer
-//        Thread.sleep(1000);
+        Thread.sleep(1000);
         int outputNumber = input + 2;
 
 
