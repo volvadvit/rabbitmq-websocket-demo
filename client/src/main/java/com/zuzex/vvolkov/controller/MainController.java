@@ -15,9 +15,9 @@ public class MainController {
     ClientProducer producer;
 
     @MessageMapping("/ws")
-    @SendTo("topic/public")
-    public NumberDTO inputNumberCheck(@Payload NumberDTO num) {
+    @SendTo("/topic/public")
+    public void inputNumberCheck(@Payload NumberDTO num) {
         System.err.println("CONTROLLER :: Get request: " + num.getNumber());
-        return producer.run(num);
+        producer.run(num);
     }
 }
